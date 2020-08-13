@@ -1,0 +1,15 @@
+---
+- hosts: web
+  tasks:
+  - name: Copy File To /tmp
+    copy:
+      src: /home/centos/playbooks/inventory.ini
+      dest: /tmp/myhosts.txt
+
+- hosts: app
+  tasks:
+  - name: Say hello
+    copy:
+      content: Hello
+      dest: /tmp/hello.txt
+...
