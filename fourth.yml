@@ -1,0 +1,10 @@
+---
+- hosts: webapp
+  become: yes
+  tasks:
+  - name: Install Utilities
+    package:
+      name: ["vim","elinks","zip"]
+      state: present
+
+...

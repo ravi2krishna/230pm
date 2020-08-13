@@ -1,0 +1,25 @@
+---
+- hosts: web
+  tasks:
+  - name: Copy File To /tmp
+    copy:
+      src: /home/centos/playbooks/inventory.ini
+      dest: /tmp/myhosts.txt
+
+  - name: Create a dir inside /tmp/ravi
+    file:
+      state: directory
+      path: /tmp/ravi
+
+- hosts: app
+  tasks:
+  - name: Say hello
+    copy:
+      content: Hello
+      dest: /tmp/hello.txt
+
+  - name: Download File
+    get_url:
+      url: https://raw.githubusercontent.com/ravi2krishna/apache/master/httpd.conf
+      dest: /tmp/apache.conf
+...
