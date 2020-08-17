@@ -1,0 +1,35 @@
+---
+- hosts: webapp
+  become: yes
+  tasks:
+  - name: Install Apache
+    package:
+      name: apache2
+      state: present
+
+  - name: Start Apache
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+
+  - name: Update Index Page
+    copy:
+      dest: /var/www/html/index.html
+      content: <h1>Welcome To Apache Server</h1>
+
+  - name: Update PHP Page
+    copy:
+      dest: /var/www/html/date.php
+      src: /home/centos/playbooks/date.php
+
+  - name: Install PHP
+    package:
+      name: php
+      state: present
+
+  - name: Restart Apache
+    service:
+      name: apache2
+      state: restarted
+...

@@ -1,0 +1,51 @@
+---
+- hosts: webapp
+  become: yes
+  handlers:
+  - name: Restart Apache
+    service:
+      name: httpd
+      state: restarted
+
+  - name: Start Apache
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  tasks:
+  - name: Install Apache
+    package:
+      name: httpd
+      state: present
+    notify:
+      - Start Apache
+
+  - name: Update SELInux
+    selinux:
+      policy: targeted
+      state: permissive
+
+  - name: Update Index Page
+    copy:
+      dest: /var/www/html/index.html
+      content: <h1>Welcome To Apache Server</h1>
+
+  - name: Update Apache Port Config
+    copy:
+      dest: /etc/httpd/conf/httpd.conf
+      src: /home/centos/playbooks/httpd.conf
+    notify:
+      - Restart Apache
+
+  - name: Update PHP Page
+    copy:
+      dest: /var/www/html/date.php
+      src: /home/centos/playbooks/date.php
+
+  - name: Install PHP
+    package:
+      name: php
+      state: present
+    notify:
+      - Restart Apache
+...
