@@ -1,0 +1,5 @@
+---
+# vars file for apache
+    username: ravi
+    apache_port: 9090
+    doc_root: /var/www/html

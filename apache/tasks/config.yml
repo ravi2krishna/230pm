@@ -1,0 +1,30 @@
+---
+  - name: Update SELInux
+    selinux:
+      policy: targeted
+      state: permissive
+
+  - name: Update Index Page
+    copy:
+      dest: /var/www/html/index.html
+      src: files/index.html
+
+  - name: Update Apache Config
+    template:
+      dest: /etc/httpd/conf/httpd.conf
+      src: templates/httpd.j2
+    notify:
+      - Restart Apache
+
+
+  - name: Restart Apache
+    service:
+      name: httpd
+      state: restarted
+
+  - name: Start Apache
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+...

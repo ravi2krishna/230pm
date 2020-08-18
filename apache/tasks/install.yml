@@ -1,0 +1,8 @@
+---
+  - name: Install Utilities
+    package:
+      name: httpd
+      state: present
+    notify:
+      - Start Apache
+...
