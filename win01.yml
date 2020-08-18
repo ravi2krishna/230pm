@@ -1,0 +1,18 @@
+---
+- hosts: win
+  tasks:
+  - name: Create directory structure
+    win_file:
+      path: C:\Temp\ravi
+      state: directory
+
+  - name: Install Git
+    win_chocolatey:
+      name: git
+      state: present
+
+  - name: Install Putty
+    win_chocolatey:
+      name: putty
+      state: present
+...
